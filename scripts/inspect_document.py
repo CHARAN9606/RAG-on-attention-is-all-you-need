@@ -9,7 +9,6 @@ def main() -> None:
         filename=str(PDF_PATH),
         strategy="fast",
     )
-
     print(f"Total elements: {len(elements)}")
 
     # 1. Count element types

@@ -1,9 +1,6 @@
 from sentence_transformers import SentenceTransformer
 
-
 MODEL_NAME = "BAAI/bge-small-en-v1.5"
-
-
 class BGEEmbedder:
     def __init__(self, model_name: str = MODEL_NAME):
         self.model = SentenceTransformer(model_name)
@@ -13,7 +10,6 @@ class BGEEmbedder:
             text,
             normalize_embeddings=True,
         )
-
         return embedding.tolist()
 
     def embed_texts(self, texts: list[str]) -> list[list[float]]:
@@ -23,5 +19,16 @@ class BGEEmbedder:
             batch_size=16,
             show_progress_bar=True,
         )
-
         return embeddings.tolist()
+
+
+_embedder = None
+
+
+def get_embedder() -> BGEEmbedder:
+    global _embedder
+
+    if _embedder is None:
+        _embedder = BGEEmbedder()
+
+    return _embedder
